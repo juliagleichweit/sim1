@@ -36,12 +36,14 @@ images = [misc.imread(path) for path in file_paths]
 images = np.asarray(images)
 # Get image size
 print(np.shape(images))
+np.save('images.npy', images)
 
 #introduce labels:
 kermit_present = np.loadtxt(IMAGE_PATH+' Kermit/filenames.txt')
 kermit_present = kermit_present.astype(int)
 labels = np.zeros(np.shape(images)[0])
 labels[kermit_present-1] = 1
+np.save('labels.npy', labels)
 print(labels)
 
 
