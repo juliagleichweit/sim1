@@ -8,7 +8,7 @@ from keras.layers import Dropout, Flatten, Dense
 from keras.layers import Conv2D, MaxPooling2D
 
 should_train = True
-should_test = True
+should_test = False
 
 # path to data images
 train_dir = "../data/train"
@@ -95,20 +95,20 @@ if __name__ == '__main__':
         else:
             model = prepare_model()
 
-            # use callbacks EarlyStopping and ModelCheckpoint
-            from keras.callbacks import CSVLogger, ModelCheckpoint, EarlyStopping
+        # use callbacks EarlyStopping and ModelCheckpoint
+        from keras.callbacks import CSVLogger, ModelCheckpoint, EarlyStopping
 
-            csv_logger = CSVLogger('training.log', append=True)
-            checkpoint = ModelCheckpoint(top_model_path, monitor='val_accuracy', verbose=1, save_best_only=True,
-                                         save_weights_only=False, mode='auto', period=1)
-            #early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=2, verbose=1, mode='auto')
+        csv_logger = CSVLogger('training.log', append=True)
+        checkpoint = ModelCheckpoint(top_model_path, monitor='val_accuracy', verbose=1, save_best_only=True,
+                                     save_weights_only=False, mode='auto', period=1)
+        #early = EarlyStopping(monitor='val_accuracy', min_delta=0, patience=2, verbose=1, mode='auto')
 
-            # Fitting/Training the model
-            print("training the model")
-            model.fit_generator(train_gen, steps_per_epoch=train_gen.samples // batch_size, epochs=epochs,
-                                validation_data=val_den,
-                                validation_steps=val_den.samples // batch_size,
-                                callbacks=[checkpoint, csv_logger])
+        # Fitting/Training the model
+        print("training the model")
+        model.fit_generator(train_gen, steps_per_epoch=train_gen.samples // batch_size, epochs=epochs,
+                            validation_data=val_den,
+                            validation_steps=val_den.samples // batch_size,
+                            callbacks=[checkpoint, csv_logger])
 
     if should_test:
         if osp.exists(top_model_path):
