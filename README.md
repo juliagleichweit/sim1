@@ -30,3 +30,11 @@ On default Muppets-02-01-01 and Muppets-03-04-03 are used for training and Muppe
 |2019/10/21 |  1h | | X | Set up environment|
 |2019/10/20| 0.5h | X | |  Create github repository|
 |2019/11/05| 1h | X | X| Research on possible neural network models for Kermit identification|
+|2019/12/10| 4h | X | X| video to frames, frames to number transformation|
+|2019/12/11| 4h | X | X| labeling of frames|
+|2019/12/12| 4h | X | X| CNN model for image classification|
+|2019/12/15| 4h | X | X| Audio to mfcc, first Dense Network, ROC curve|
+|2019/12/16| 3h | X | X| Labeling of audio, CNN network for audio classification|
+|2019/12/17| 6h |  | X| Training on GPU and crashed python|
+|2019/12/19| 4h |  | X| Package fix, training|
+|2019/12/20| 8h |  | X| image+audio classification in one, round up|
