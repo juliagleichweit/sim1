@@ -36,6 +36,10 @@ images = [misc.imread(path) for path in file_paths]
 images = np.asarray(images)
 # Get image size
 print(np.shape(images))
+#pad the images to 544 x 720
+if np.shape(images) != (np.shape(images)[0], 544, 720, 3):
+    images = np.pad(images, [(0, 0), (0, 544 - images.shape[1]), (0, 720 - images.shape[2]), (0, 0)], mode='constant', constant_values=0)
+
 np.save('images.npy', images)
 
 #introduce labels:
