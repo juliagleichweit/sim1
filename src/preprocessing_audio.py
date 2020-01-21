@@ -4,51 +4,79 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import librosa.display
+import glob
+import os.path as osp
+import  librosa as lr
+# Define the paths
+base = "../data/audio/"
+processed_dir = "../../processed_img/"
 
-#this script is used to convert the wav files to numbers and to introduce the labels needed for the classification task
+muppet_dirs = ["Muppets-02-01-01" , "Muppets-03-04-03"]
+test_dir = ["Muppets-02-04-04"]
 
-#do the following steps for each .wav file
-IMAGE_PATH = 'Muppets-02-01-01'
-file_path = "Audio\\" + IMAGE_PATH+ ".wav"
-
-#get the Mel-frequency cepstral coefficients
-wave, sr = librosa.load(file_path, mono=True, sr=None)
-duration = librosa.get_duration(wave, sr=sr)
-mfcc = librosa.feature.mfcc(wave, sr=sr)
-
-#introduce labels:
-kermit_present = np.loadtxt(IMAGE_PATH+' Kermit/filenames.txt')
-kermit_present = kermit_present.astype(int)
-labels = np.zeros(np.shape(mfcc)[1])
-
-#the labeling was made for two frames per second, the new data has much more data points per second
-#addapt the labeling from 2FPS to the discretization of the mfcc
-step = np.shape(mfcc)[1]/math.ceil(duration*2)
-
-for i in kermit_present:
-    labels[math.floor((i-1)*step):math.ceil((i)*step)] = 1
-
-#pad all data sets to the same length
-pad_width = 133333 #fix dimension
-
-mfcc = np.pad(mfcc, pad_width=((0, 0), (0, pad_width - mfcc.shape[1])), mode='constant')
-labels = np.pad(labels, pad_width=((0, pad_width - labels.shape[0])), mode='constant')
-
-#cut the decimals to save memory and transpose mfcc
-audio = np.around(mfcc.T,decimals=2)
-
-#plot the mfcc
-plt.figure(figsize=(6, 4))
-librosa.display.specshow(mfcc, x_axis='time')
-plt.colorbar()
-plt.title('MFCC')
-plt.tight_layout()
-plt.show()
-
-#save the mfcc and the labeling
-np.save('audio_'+IMAGE_PATH+'.npy', audio)
-np.save('labels_audio_'+IMAGE_PATH+'.npy', labels)
+pattern = "*.mp4"
+num_mffcs = 40
+input_shape = (num_mffcs,44)
 
 
+def save_chunks(dirs:[str], mode:str):
+    chunks = []
+    for dir in dirs:
+        # do the following steps for each .wav file
+        # ../..data/audio/Muppets-02-01-01/Muppets-02-01-01.wav
+        kermit_chunks = base + dir + "/kermit/" + pattern
+
+        count = 0
+        print("process ", kermit_chunks)
+        for file_chunk in glob.iglob(kermit_chunks):
+            # print(file_chunk)
+            # load audio
+            # data = audio time series
+            # sr = sampling rate of y
+            data, sr = lr.load(file_chunk)
+            S = np.abs(lr.stft(data))
+            # pitches, magnitudes = librosa.piptrack(S=S, sr=sr)
+            mfccs = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=num_mffcs)
+
+            # print(count, " ", mfccs.shape)
+
+            if mfccs.shape[1] < input_shape[1]:  # need to add 0 column
+                padd = np.zeros(input_shape)
+                padd[:, :mfccs.shape[1]] = mfccs
+                chunks.append(padd)
+            else:
+                chunks.append(mfccs)
+
+            count += 1
+            if count % 100 == 0:
+                print("count ", count)
+
+        nkermit_chunks = base + dir + "/not_kermit/" + pattern
+        print("process not_kermits")
+        count = 0
+        for file_chunk in glob.iglob(nkermit_chunks):
+            data, sr = lr.load(file_chunk)
+            S = np.abs(lr.stft(data))
+            # pitches, magnitudes = librosa.piptrack(S=S, sr=sr)
+            mfccs = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=num_mffcs)
+
+            if mfccs.shape[1] < input_shape[1]:  # need to add 0 column
+                padd = np.zeros(input_shape)
+                padd[:, :mfccs.shape[1]] = mfccs
+                chunks.append(padd)
+            else:
+                chunks.append(mfccs)
+
+            count += 1
+            if count % 100 == 0:
+                print("count ", count)
+
+    chunks_arr = np.asarray(chunks)
+    print(chunks_arr.shape)
+    np.save(mode+"chunks", chunks_arr)
 
 
+if __name__ == '__main__':
+    # this script is used to convert the wav files to numbers and to introduce the labels needed for the classification task
+    save_chunks(muppet_dirs, "train")
+    save_chunks(test_dir,"test")

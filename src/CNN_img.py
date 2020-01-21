@@ -9,6 +9,7 @@ import numpy as np
 
 should_train = False
 should_test = True
+save_probabilities = True
 
 # path to data images
 train_dir = "../data/train"
@@ -131,19 +132,13 @@ if __name__ == '__main__':
 
             print("evaluating model")
             score = model.evaluate_generator(validation_generator, nb_validation_samples / batch_size)
-
-            # validation_generator.reset()
-            # scores = model.predict_generator(validation_generator, nb_validation_samples / batch_size)
-
-            # class_one = scores > 0.5
-            # true_labels = np.array([0] * 492 + [1] * 1057)
-            # acc = np.mean(class_one == true_labels)
-            # print("acc: ", acc)
-
-            # correct = 0
-            # for i, n in enumerate(validation_generator.filenames):
-            #   print(n ," score: ", scores[i][0], (scores[i][0]<=0.5))
-
             print("Loss: ", score[0], "Accuracy: ", score[1])
+
+            if save_probabilities:
+                validation_generator.reset()
+                scores = model.predict_generator(validation_generator, nb_validation_samples / batch_size)
+                np.save("probabilites_test_images", scores)
+                print(scores)
+
         else:
             print("cannot find trained model")
