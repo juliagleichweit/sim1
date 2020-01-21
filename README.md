@@ -19,10 +19,16 @@ Default is True - False - True.
 
 *moveFiles=True*: according to the labels (i.e sorting of the frames, Ground Truth (GT)) they are moved to __data/train__ and __data/test__. 
 On default Muppets-02-01-01 and Muppets-03-04-03 are used for training and Muppets-02-04-04 for testing.  
+#### CNN architecture
+We use an increasing number of filter (powers of 2) and a decreasing size of kernels in each layer.
+Between the convolutional layers we use MaxPool to reduce the size of parameters.
+After switching from 2 dimensions to 1 by flattening, we introduce three more dense layers.
+These hidden layers are fully connected with drop out of 20% in between. 
+We output two neurons, which are the two possible classes we consider. 
 
-#### Experiment:
+#### Experiment
 Due to lacking computational resources training on the two data sets were only possible for one epoch each.
-##### Results:
+##### Results
 We obtained the following metrics:
 ![ROC curve](https://github.com/juliagleichweit/sim1/blob/master/ROC.png)
 
