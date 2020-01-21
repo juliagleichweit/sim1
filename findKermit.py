@@ -22,7 +22,7 @@ def ishethere(start,end,video):
     max_value_images_str=str(max_value_images.astype(np.float))
 
     #Audio
-    X = np.load('testchunks.npy')[math.floor(start*86.12):math.ceil(end*86.12)]#!!!check how to obtain time interval
+    X = np.load('Muppets-02-04-04_ordered_chunks.npy')[start:end] #[math.floor(start*86.12):math.ceil(end*86.12)]#!!!check how to obtain time interval
     X = np.expand_dims(X, axis=2)
 
     model_audio = load_model('model_audio.h5')
