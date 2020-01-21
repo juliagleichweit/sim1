@@ -41,10 +41,6 @@ To get the chunks (max. 1s long):
 
 In __data/audio__ you can find the corresponding labels for kermit and non_kermit. 
 The __CNN_audio.py__ uses a Numpy-array to feed the network. You can produce these files via __src/preprocessing_audio.py__ or use the train (*trainchunks.npy*) and test file (*testchunks.npy*) are directly located in data.
-For the audio 40 MFCCs (Mel-Frequency Cepstral Coefficient) are used. MFCCs make us of the  Mel scaling to try to model the way that the human hearing audiotory system perceives sounds.
-That is also why we chose to use this features.
-
-The model is a simple deep neural network which should achieve around 83% accuracy on the test data.
 
 In summary, this is our directory structure:
 ```
@@ -81,7 +77,22 @@ data/
 ```
 
 After the above steps are done the test environment should be correctly set up.
+
+#### Train the Models
+Aftwerwards execute CNN_XXX.py and CNN_audio.py (a bit misleading name with C instead of D) to train the models or to test them on the prepared test data.
+Therefore you have to set the shouldTrain and shouldTest boolean values in the corresponding script.
    
+Both models employ a binary classifier. 
+
+- For the audio 40 MFCCs (Mel-Frequency Cepstral Coefficient) are used. MFCCs make us of the  Mel scaling to try to model the way that the human hearing audiotory system perceives sounds.
+That is also why we chose to use this features.
+
+__AUDIO__: For the audio 40 MFCCs (Mel-Frequency Cepstral Coefficient) are used. MFCCs make us of the  Mel scaling to try to model the way that the human hearing audiotory system perceives sounds.
+That is also why we chose to use this features.
+
+The model is a simple deep neural network which should achieve around 83% accuracy on the test data.
+
+
 #### Time Sheet: 
 | Date| Time   | Julia | Benedikt| Description|
 |-------|:---------|:-------|:----|:------|
