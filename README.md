@@ -27,12 +27,12 @@ These hidden layers are fully connected with drop out of 20% in between.
 We output two neurons, which are the two possible classes we consider. 
 
 #### Experiment
-Due to lacking computational resources training on the two data sets were only possible for one epoch each.
+Due to lacking computational resources, training on the two data sets was only possible for one epoch for each data set.
 ##### Results
 We obtained the following metrics:
 ![ROC curve](https://github.com/juliagleichweit/sim1/blob/master/ROC.png)
 
-Class 0 is Kermit is not present
+Class 0 is Kermit is not present:
 
 | class | precision | recall | f1-score | support |
 |-----|-----------|--------|----------|---------|
