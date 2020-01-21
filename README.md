@@ -137,7 +137,7 @@ The model is a simple deep neural network which should achieve around 83% accura
 |2020/01/16| 3h |  | X| Labeling of audio, CNN network for audio classification|
 |2020/01/17| 6h |  | X| Training on GPU and crashed python|
 |2020/01/17| 3h | X | | separate audio labeling (1s chunks), use ffmpeg to get audiotrack and 1s-chunks
-|2020/01/19| 4h |  | X| Package fix, training|
+|2020/01/19| 8h |  | X| Package fix, training|
 |2020/01/20| 2h | X | | different audio classification|
 |2020/01/20| 8h | X | X| image+audio classification in one, round up|
 
