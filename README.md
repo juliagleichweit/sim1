@@ -24,7 +24,7 @@ On default Muppets-02-01-01 and Muppets-03-04-03 are used for training and Muppe
 Due to lacking computational resources training on the two data sets were only possible for one epoch each.
 ##### Results:
 We obtained the following metrics:
-![ROC curve](https://github.com/juliagleichweit/sim1/blob/master/Figure_1.png)
+![ROC curve](https://github.com/juliagleichweit/sim1/blob/master/ROC.png)
 
 
 
