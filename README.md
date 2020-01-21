@@ -26,6 +26,13 @@ Due to lacking computational resources training on the two data sets were only p
 We obtained the following metrics:
 ![ROC curve](https://github.com/juliagleichweit/sim1/blob/master/ROC.png)
 
+Class 0 is Kermit is not present
+
+| class | precision | recall | f1-score | support |
+|-----|-----------|--------|----------|---------|
+| 0.0 | 0.74      | 0.01   | 0.02     | 2116    |
+| 1.0 | 0.32      | 0.99   | 0.48     | 981     |
+
 
 
 
