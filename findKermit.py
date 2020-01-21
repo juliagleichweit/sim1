@@ -23,7 +23,7 @@ def ishethere(start,end,video):
     max_value_images_str=str(max_value_images.astype(np.float))
 
     #Audio
-    X = np.load('audio_'+video+'.npy')[math.floor(start*86.12):math.ceil(end**86.12)]
+    X = np.load('audio_'+video+'.npy')[math.floor(start*86.12):math.ceil(end*86.12)]
     X = np.expand_dims(X, axis=2)
 
     model_audio = load_model('model_audio.h5')
