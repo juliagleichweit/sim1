@@ -20,6 +20,15 @@ Default is True - False - True.
 *moveFiles=True*: according to the labels (i.e sorting of the frames, Ground Truth (GT)) they are moved to __data/train__ and __data/test__. 
 On default Muppets-02-01-01 and Muppets-03-04-03 are used for training and Muppets-02-04-04 for testing.  
 
+#### Experiment:
+Due to lacking computational resources training on the two data sets were only possible for one epoch each.
+##### Results:
+We obtained the following metrics:
+![ROC curve](https://github.com/juliagleichweit/sim1/blob/master/Figure_1.png)
+
+
+
+
 
 ### Prepare Files - Audio
 
